@@ -28,7 +28,7 @@ class PostController extends ApiController
     public function store(Request $request)
     {
         $validated_post = $request->validate([
-            'content' => 'required|string|min:5|max:3000',
+            'content' => 'required|string|min:5|max:250',
         ]);
         $post = Post::create($validated_post);
         return $this->createdResponse($post);
@@ -55,7 +55,7 @@ class PostController extends ApiController
     public function update(Request $request, Post $post)
     {
         $validated_post = $request->validate([
-            'content' => 'required|string|min:5|max:3000',
+            'content' => 'required|string|min:5|max:250',
         ]);
         $post->fill($validated_post);
         if ($post->isDirty()) {

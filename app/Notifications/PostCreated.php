@@ -5,8 +5,8 @@ namespace App\Notifications;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use NotificationChannels\FacebookPoster\FacebookPosterPost;
-use NotificationChannels\FacebookPoster\FacebookPosterChannel;
+use NotificationChannels\Twitter\TwitterChannel;
+use NotificationChannels\Twitter\TwitterStatusUpdate;
 
 class PostCreated extends Notification
 {
@@ -20,7 +20,7 @@ class PostCreated extends Notification
      */
     public function via($notifiable)
     {
-        return [FacebookPosterChannel::class];
+        return [TwitterChannel::class];
     }
 
     /**
@@ -29,8 +29,9 @@ class PostCreated extends Notification
      * @param  mixed  $post
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    public function toFacebookPoster($post)
+    public function toTwitter($post)
     {
-        return with(new FacebookPosterPost($post->content));
+        $posted = new TwitterStatusUpdate($post->content);
+        return with($posted);
     }
 }

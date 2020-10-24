@@ -46,4 +46,15 @@ trait ApiResponser
     {
         return response()->json(['error' => $message, 'code' => $code], $code);
     }
+
+    /**
+     * Build error responses
+     * @param  array  $errors
+     * @param  int  $code
+     * @return Illuminate\Http\JsonResponse
+     */
+    public function multipleErrorsResponse($errors, $code)
+    {
+        return response()->json(['errors' => $errors, 'code' => $code], $code);
+    }
 }
